@@ -1,0 +1,24 @@
+<div class="jumbotron">
+<form>
+  <fieldset>
+    <div class="form-group">
+      <label for="departamento">Departamento:</label>
+      <select id="departamento" class="form-control" ng-model="vm.ubigeo.departamento" ng-change="vm.getProvincias(vm.ubigeo.departamento)">
+        <option ng-repeat="dpto in vm.departamento" value='{{dpto.codigo}}'>{{dpto.nombre}}</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="provincia">Provincia:</label>
+      <select id="provincia" class="form-control" ng-model="vm.ubigeo.provincia" ng-change="vm.getDistritos(vm.ubigeo.provincia)" ng-disabled="vm.selectedDpto">
+        <option ng-repeat="prov in vm.provincia | filter:{codigo_padre:vm.filter_provincia}" value='{{prov.codigo}}'>{{prov.nombre}}</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="distrito">Distrito:</label>
+      <select id="distrito" class="form-control" ng-model="vm.ubigeo.distrito" ng-disabled="vm.selectedProvincia">
+        <option ng-repeat="dist in vm.distrito | filter:{codigo_padre:vm.filter_distrito}" value='{{dist.codigo}}'>{{dist.nombre}}</option>
+      </select>
+    </div>        
+  </fieldset>
+</form>
+</div>
