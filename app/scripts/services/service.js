@@ -4,25 +4,24 @@
  * @ngdoc function
  * @name ejeTecnicoApp.service:ExampleService
  * @description
- * # MainCtrl
+ * # ExampleService
  * Controller of the ejeTecnicoApp
  */
 angular.module('ejeTecnicoApp')
-  .service('ExampleService', function ($http, $q) {
-  		var deferred = $q.defer();
-  		var vm = this;
+  .factory('ExampleService',['UtilService','$http','$q', function (UtilService, $http, $q) {
+      var example = {};
+      var deferred = $q.defer();
 
-  		this.loadData = loadData;
-
-  		function loadData() {
-            return $http.get('txtUbigeo.txt')
+      example.get_departamento_data =  function() {
+        return $http.get('txtUbigeo.txt')
                 .then(function(data) {
-                    deferred.resolve(data);
+                    var ubigeo_json = UtilService.formatUbigeo(data);
+                    deferred.resolve(ubigeo_json);
                     return deferred.promise;
                 }, function() {
                     deferred.reject();
                     return deferred.promise;
                 });  			
       }
-  		
-  });
+      return example;
+  }]);
